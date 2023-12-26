@@ -1,5 +1,5 @@
 const selectBox = document.getElementById('select-box');
-let isMouseDown = false;
+let isMouseDownSelectBox = false;
 
 let startX = 0;
 let startY = 0;
@@ -12,16 +12,16 @@ document.addEventListener('mousedown', function(e){
     selectBox.style.width = 0;
     selectBox.style.height = 0;
     selectBox.style.opacity = '1';
-    isMouseDown = true;
+    isMouseDownSelectBox = true;
 })
 
 document.addEventListener('mouseup', function(){
     selectBox.style.opacity = '0';
-    isMouseDown = false;
+    isMouseDownSelectBox = false;
 })
 
 document.addEventListener('mousemove', function(e){
-    if(isMouseDown){
+    if(isMouseDownSelectBox){
         let width = e.clientX - startX; //no abs because we need to know WHEN x and y is negative to change top and left
         let height = e.clientY - startY;
 

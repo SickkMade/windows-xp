@@ -4,7 +4,7 @@ let xClickStart = 0;
 let yClickStart = 0;
 
 let currentWindow = null;
-let isMouseDown = false;
+let isMouseDownWindow = false;
 
 windows.forEach(function(dWindow){
     dWindow.querySelector('.window-bar').addEventListener('mousedown', function(e){
@@ -16,17 +16,17 @@ windows.forEach(function(dWindow){
         yClickStart = e.clientY - parseInt(dWindow.style.top);
 
         currentWindow = dWindow;
-        isMouseDown = true; // only works if mouse over window
+        isMouseDownWindow = true; // only works if mouse over window
     })
 })
 
 document.addEventListener('mousemove', function(e){
-    if(isMouseDown){
+    if(isMouseDownWindow){
         //console.log((`ymouse: ${e.clientY} - yclickStart: ${yClickStart} = ${e.clientY - yClickStart}`));
         currentWindow.style.top = `${(e.clientY - yClickStart)}px`;
         currentWindow.style.left = `${(e.clientX - xClickStart)}px`;
     }
 })
 document.addEventListener('mouseup', function(){
-    isMouseDown = false;
+    isMouseDownWindow = false;
 })
