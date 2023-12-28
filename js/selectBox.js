@@ -5,18 +5,22 @@ let startX = 0;
 let startY = 0;
 
 document.addEventListener('mousedown', function(e){
-    startX = e.clientX;
-    startY = e.clientY;
-    selectBox.style.left = startX + 'px';
-    selectBox.style.top = startY + 'px';
-    selectBox.style.width = 0;
-    selectBox.style.height = 0;
-    selectBox.style.opacity = '1';
-    isMouseDownSelectBox = true;
+    if(e.target === document.body){
+        startX = e.clientX;
+        startY = e.clientY;
+        selectBox.style.left = startX + 'px';
+        selectBox.style.top = startY + 'px';
+        selectBox.style.width = 0;
+        selectBox.style.height = 0;
+        selectBox.style.opacity = '1';
+        isMouseDownSelectBox = true;
+    }
 })
 
 document.addEventListener('mouseup', function(){
     selectBox.style.opacity = '0';
+    selectBox.style.width = 0;
+    selectBox.style.height = 0;
     isMouseDownSelectBox = false;
 })
 

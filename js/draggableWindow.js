@@ -19,10 +19,8 @@ windows.forEach(function(dWindow){
         isMouseDownWindow = true; // only works if mouse over window
     })
 })
-
 document.addEventListener('mousemove', function(e){
     if(isMouseDownWindow){
-        //console.log((`ymouse: ${e.clientY} - yclickStart: ${yClickStart} = ${e.clientY - yClickStart}`));
         currentWindow.style.top = `${(e.clientY - yClickStart)}px`;
         currentWindow.style.left = `${(e.clientX - xClickStart)}px`;
     }
