@@ -73,16 +73,15 @@ wests.forEach(function(west){
 function resize(north, south, east, west, e){ //all bools
     if(north){
         currentWindow.style.top = e.clientY + 'px';
-        // currentWindow.style.height = (e.clientY - startY) + 'px';
+        currentWindow.style.height = (e.clientY - parseInt(currentWindow.style.top)) + 'px';
     }
     if(south){
-        currentWindow.style.height = (e.clientY - startY) + 'px';
+        currentWindow.style.height = (e.clientY - parseInt(currentWindow.style.top)) + 'px';
     }
     if(east){
-        currentWindow.style.width = (e.clientX - startX) + 'px';
+        currentWindow.style.width = (e.clientX - parseInt(currentWindow.style.left)) + 'px'; //redo since its same as xclickstart
     }
     if(west){
         currentWindow.style.left = e.clientX + 'px';
-        // currentWindow.style.width = (e.clientX - startX) + 'px';
     }
 }

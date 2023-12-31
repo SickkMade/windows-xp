@@ -4,7 +4,7 @@ let isMouseDownSelectBox = false;
 let startX = 0;
 let startY = 0;
 
-document.addEventListener('mousedown', function(e){
+document.addEventLdistener('mousedown', function(e){
     if(e.target === document.body){
         startX = e.clientX;
         startY = e.clientY;
