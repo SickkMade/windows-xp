@@ -6,10 +6,10 @@ let yClickStart = 0;
 let currentWindow = null;
 let isMouseDownWindow = false;
 
-let norths = document.querySelectorAll('.north');
-let souths = document.querySelectorAll('.south');
-let easts = document.querySelectorAll('.east');
-let wests = document.querySelectorAll('.west');
+let norths = document.querySelectorAll('.northResize');
+let souths = document.querySelectorAll('.southResize');
+let easts = document.querySelectorAll('.eastResize');
+let wests = document.querySelectorAll('.westResize');
 
 let isNorth = false;
 let isSouth = false;
