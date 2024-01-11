@@ -6,10 +6,10 @@ let yClickStart = 0;
 let currentWindow = null;
 let isMouseDownWindow = false;
 
-let norths = document.querySelectorAll('.northResize');
-let souths = document.querySelectorAll('.southResize');
-let easts = document.querySelectorAll('.eastResize');
-let wests = document.querySelectorAll('.westResize');
+let norths = document.querySelectorAll('.north');
+let souths = document.querySelectorAll('.south');
+let easts = document.querySelectorAll('.east');
+let wests = document.querySelectorAll('.west');
 
 let isNorth = false;
 let isSouth = false;
@@ -72,8 +72,9 @@ wests.forEach(function(west){
 //seperate into two funcs
 function resize(north, south, east, west, e){ //all bools
     if(north){
-        currentWindow.style.top = e.clientY + 'px';
-        currentWindow.style.height = (e.clientY - parseInt(currentWindow.style.top)) + 'px';
+        //currentWindow.style.top = e.clientY + 'px';
+        currentWindow.style.height = parseInt(currentWindow.style.top) - e.clientY) + 'px';
+        //console.log(parseInt(currentWindow.style.height) + (parseInt(currentWindow.style.top) - e.clientY) );
     }
     if(south){
         currentWindow.style.height = (e.clientY - parseInt(currentWindow.style.top)) + 'px';

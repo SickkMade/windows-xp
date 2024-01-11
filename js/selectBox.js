@@ -4,13 +4,13 @@ let isMouseDownSelectBox = false;
 let startX = 0;
 let startY = 0;
 
-document.addEventLdistener('mousedown', function(e){
+document.addEventListener('mousedown', function(e){
     if(e.target === document.body){
         startX = e.clientX;
         startY = e.clientY;
         selectBox.style.left = startX + 'px';
         selectBox.style.top = startY + 'px';
-        selectBox.style.width = 0;
+        selectBogitx.style.width = 0;
         selectBox.style.height = 0;
         selectBox.style.opacity = '1';
         isMouseDownSelectBox = true;
