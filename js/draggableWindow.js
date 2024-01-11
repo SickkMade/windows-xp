@@ -73,7 +73,7 @@ wests.forEach(function(west){
 function resize(north, south, east, west, e){ //all bools
     if(north){
         //currentWindow.style.top = e.clientY + 'px';
-        currentWindow.style.height = parseInt(currentWindow.style.top) - e.clientY) + 'px';
+        //currentWindow.style.height = parseInt(currentWindow.style.top) - e.clientY) + 'px';
         //console.log(parseInt(currentWindow.style.height) + (parseInt(currentWindow.style.top) - e.clientY) );
     }
     if(south){
