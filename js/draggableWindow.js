@@ -1,15 +1,21 @@
 let windows = document.querySelectorAll('.draggable-window');
 
-let xClickStart = 0;
-let yClickStart = 0;
+let xRelativeClickStart = 0;
+let yRelativeClickStart = 0;
 
 let currentWindow = null;
 let isMouseDownWindow = false;
 
-let norths = document.querySelectorAll('.north');
-let souths = document.querySelectorAll('.south');
-let easts = document.querySelectorAll('.east');
-let wests = document.querySelectorAll('.west');
+let windowStartWidth = 250; //temp vars for setting widht and height on start
+let windowStartHeight = 250;
+
+let onClickHeight;
+
+
+let norths = document.querySelectorAll('.northResize');
+let souths = document.querySelectorAll('.southResize');
+let easts = document.querySelectorAll('.eastResize');
+let wests = document.querySelectorAll('.westResize');
 
 let isNorth = false;
 let isSouth = false;
@@ -23,9 +29,13 @@ windows.forEach(function(dWindow){
         if(dWindow.style.top == ''){
             dWindow.style.left = '0px';
             dWindow.style.top = '0px';
+            dWindow.style.width = windowStartWidth + 'px';
+            dWindow.style.height = windowStartHeight + 'px';
+
         }
-        xClickStart = e.clientX - parseInt(dWindow.style.left);
-        yClickStart = e.clientY - parseInt(dWindow.style.top);
+        onClickHeight = parseInt(dWindow.style.height);
+        xRelativeClickStart = e.clientX - parseInt(dWindow.style.left);
+        yRelativeClickStart = e.clientY - parseInt(dWindow.style.top);
     })
     dWindow.querySelector('.window-bar').addEventListener('mousedown', function(){
         isMouseDownWindow = true; // only works if mouse over window
@@ -33,8 +43,8 @@ windows.forEach(function(dWindow){
 })
 document.addEventListener('mousemove', function(e){
     if(isMouseDownWindow){
-        currentWindow.style.top = `${(e.clientY - yClickStart)}px`;
-        currentWindow.style.left = `${(e.clientX - xClickStart)}px`;
+        currentWindow.style.top = `${(e.clientY - yRelativeClickStart)}px`;
+        currentWindow.style.left = `${(e.clientX - xRelativeClickStart)}px`;
     }
     resize(isNorth, isSouth, isEast, isWest, e);
 })
@@ -69,12 +79,14 @@ wests.forEach(function(west){
     })
 })
 
-//seperate into two funcs
+//seperate into two funcs but im lazy mwahahaha
 function resize(north, south, east, west, e){ //all bools
     if(north){
-        //currentWindow.style.top = e.clientY + 'px';
-        //currentWindow.style.height = parseInt(currentWindow.style.top) - e.clientY) + 'px';
-        //console.log(parseInt(currentWindow.style.height) + (parseInt(currentWindow.style.top) - e.clientY) );
+        let newHeight = (e.clientY - parseInt(currentWindow.style.top)); //neweight is the distance between the mouse and the top of the window
+        newHeight = -(newHeight - parseInt(currentWindow.style.height)); //since we're going up the height will be negative (so we reverse taht) then we subtract (from the negative height (so it adds)) the height of the window on first click. before i had - 50 for min height but now it will adjust the window based on its height
+        currentWindow.style.height = newHeight + 'px';
+
+        currentWindow.style.top = e.clientY + 'px';
     }
     if(south){
         currentWindow.style.height = (e.clientY - parseInt(currentWindow.style.top)) + 'px';
@@ -83,6 +95,10 @@ function resize(north, south, east, west, e){ //all bools
         currentWindow.style.width = (e.clientX - parseInt(currentWindow.style.left)) + 'px'; //redo since its same as xclickstart
     }
     if(west){
+        let newWidth = (e.clientX - parseInt(currentWindow.style.left)); //neweight is the distance between the mouse and the top of the window
+        newWidth = -(newWidth - parseInt(currentWindow.style.width)); //since we're going up the height will be negative (so we reverse taht) then we subtract (from the negative height (so it adds)) the height of the window on first click. before i had - 50 for min height but now it will adjust the window based on its height
+        currentWindow.style.width = newWidth + 'px';
+
         currentWindow.style.left = e.clientX + 'px';
     }
 }

@@ -10,7 +10,7 @@ document.addEventListener('mousedown', function(e){
         startY = e.clientY;
         selectBox.style.left = startX + 'px';
         selectBox.style.top = startY + 'px';
-        selectBogitx.style.width = 0;
+        selectBox.style.width = 0;
         selectBox.style.height = 0;
         selectBox.style.opacity = '1';
         isMouseDownSelectBox = true;
