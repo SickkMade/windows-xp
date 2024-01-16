@@ -1,20 +1,20 @@
 let icons = document.querySelectorAll('.icon');
-let activeIcon;
+let activeIcons = []; //dyanmic list of every icon that is activated
 
 
 icons.forEach(function(icon){
     icon.addEventListener('mousedown', function(){
-        if(activeIcon)
-            removeIcon(activeIcon);
-        addIcon(icon)
-        activeIcon = icon;
+        if(activeIcons != []) //if their are active icons
+            removeAllActiveIcons(); //delete them all
+        addActiveIconClass(icon) //add the new clicked icon
+        activeIcons.unshift(icon);
     })
 })
 
 document.addEventListener('mousedown', function(e){
-    if(activeIcon != e.target.closest('.icon')){
-        removeIcon(activeIcon);
-        activeIcon = null;
+    if(!e.target.closest('.icon')){  //wehn you click off of icon
+            removeAllActiveIcons();
+            activeIcons = [];
     }
 })
 
@@ -22,21 +22,23 @@ document.addEventListener('mousemove', function(){
     if(isMouseDownSelectBox){
         icons.forEach(function(icon){
             if(isOverlapping(selectBox, icon)){ //idk if this is coupling
-                addIcon(icon)
+                addActiveIconClass(icon)
+                activeIcons.unshift(icon);
             } else if(icon.classList.contains('icon-active')){ //if not selected and has icon-active then deselect it. man this code is running so much for checking almost nothing. i def feel like this code sucks i need to rewrite
-                removeIcon(icon);
+                icon.classList.remove('icon-active');
             }
         })
     }
-
 })
 
-function addIcon(icon){
+function addActiveIconClass(icon){
     icon.classList.add('icon-active');
 }
 
-function removeIcon(activeIcon){
-    activeIcon.classList.remove('icon-active');
+function removeAllActiveIcons(){
+    activeIcons.forEach(function(activeIcon){
+        activeIcon.classList.remove('icon-active');
+    })
 }
 
 function isOverlapping(element1, element2) {
