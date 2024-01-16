@@ -121,3 +121,5 @@ function resize(north, south, east, west, e){ //all bools
         } //this is tricky bc i cant just set the width to 50 i need to move the left back to 50 away from the right side AAAs
     }
 }
+
+//do a .onload to set some conditionals when the window event is created! instead of doing it on mouse click
