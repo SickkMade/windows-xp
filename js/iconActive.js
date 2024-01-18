@@ -1,5 +1,5 @@
 let icons = document.querySelectorAll('.icon');
-let activeIcon = null;
+let mouseDownOnIcon = false;
 
 document.addEventListener('mousemove', function(){
     if(isSelectBoxActive){ //checks icons to see if they are touching the selectbox
@@ -14,20 +14,28 @@ document.addEventListener('mousemove', function(){
 })
 
 document.addEventListener('mousedown', function(e){
-    if(e.target === document.body && activeIcon){
-        activeIcon.classList.remove('icon-active');
-        activeIcon = null;
+    if(e.target === document.body){
+        unselectAllIcons();
     }
 })
 
 icons.forEach(function(icon){
     icon.addEventListener('mousedown', function(){
-        if(activeIcon)
-            activeIcon.classList.remove('icon-active');
+        unselectAllIcons();
         icon.classList.add('icon-active');
-        activeIcon = icon;
+        
+        mouseDownOnIcon = true;
+    })
+    icon.addEventListener('mouseup', function(){
+        mouseDownOnIcon = false;
     })
 })
+
+function unselectAllIcons(){
+    icons.forEach(function(icon){
+        icon.classList.remove('icon-active');
+    })
+}
 
 function isOverlapping(element1, element2) {
     var rect1 = element1.getBoundingClientRect();
