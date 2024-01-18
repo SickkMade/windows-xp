@@ -1,45 +1,33 @@
 let icons = document.querySelectorAll('.icon');
-let activeIcons = []; //dyanmic list of every icon that is activated
-
-
-icons.forEach(function(icon){
-    icon.addEventListener('mousedown', function(){
-        if(activeIcons != []) //if their are active icons
-            removeAllActiveIcons(); //delete them all
-        addActiveIconClass(icon) //add the new clicked icon
-        activeIcons.unshift(icon);
-    })
-})
-
-document.addEventListener('mousedown', function(e){
-    if(!e.target.closest('.icon')){  //wehn you click off of icon
-            removeAllActiveIcons();
-            activeIcons = [];
-    }
-})
+let activeIcon = null;
 
 document.addEventListener('mousemove', function(){
-    if(isMouseDownSelectBox){
+    if(isSelectBoxActive){ //checks icons to see if they are touching the selectbox
         icons.forEach(function(icon){
-            if(isOverlapping(selectBox, icon)){ //idk if this is coupling
-                addActiveIconClass(icon)
-                activeIcons.unshift(icon);
-            } else if(icon.classList.contains('icon-active')){ //if not selected and has icon-active then deselect it. man this code is running so much for checking almost nothing. i def feel like this code sucks i need to rewrite
-                icon.classList.remove('icon-active');
+            if(isOverlapping(icon, selectBox)){
+                icon.classList.add('icon-active'); //if touching add icon-active class
+            }else{
+                icon.classList.remove('icon-active'); //if not touching then dont
             }
         })
     }
 })
 
-function addActiveIconClass(icon){
-    icon.classList.add('icon-active');
-}
-
-function removeAllActiveIcons(){
-    activeIcons.forEach(function(activeIcon){
+document.addEventListener('mousedown', function(e){
+    if(e.target === document.body && activeIcon){
         activeIcon.classList.remove('icon-active');
+        activeIcon = null;
+    }
+})
+
+icons.forEach(function(icon){
+    icon.addEventListener('mousedown', function(){
+        if(activeIcon)
+            activeIcon.classList.remove('icon-active');
+        icon.classList.add('icon-active');
+        activeIcon = icon;
     })
-}
+})
 
 function isOverlapping(element1, element2) {
     var rect1 = element1.getBoundingClientRect();
@@ -50,4 +38,3 @@ function isOverlapping(element1, element2) {
              rect1.bottom < rect2.top || 
              rect1.top > rect2.bottom);
 }
-//i need to figure out how to seperate this classes. in mulitple im using the same dom calls which is of course not good for performance. since it's small it dont matter but you know good practise ofcourse.

@@ -1,5 +1,6 @@
 const selectBox = document.getElementById('select-box');
-let isMouseDownSelectBox = false;
+let isMouseDownOnBody = false; //need to move this var since is used everywhere and is arbitrarily in select box
+let isSelectBoxActive = false;
 
 let startX = 0;
 let startY = 0;
@@ -13,7 +14,7 @@ document.addEventListener('mousedown', function(e){
         selectBox.style.width = 0;
         selectBox.style.height = 0;
         selectBox.style.opacity = '1';
-        isMouseDownSelectBox = true;
+        isMouseDownOnBody = true;
     }
 })
 
@@ -21,11 +22,13 @@ document.addEventListener('mouseup', function(){
     selectBox.style.opacity = '0';
     selectBox.style.width = 0;
     selectBox.style.height = 0;
-    isMouseDownSelectBox = false;
+    isMouseDownOnBody = false;
+    isSelectBoxActive = false;
 })
 
 document.addEventListener('mousemove', function(e){
-    if(isMouseDownSelectBox){
+    if(isMouseDownOnBody){
+        isSelectBoxActive = true;
         let width = e.clientX - startX; //no abs because we need to know WHEN x and y is negative to change top and left
         let height = e.clientY - startY;
 
