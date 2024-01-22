@@ -1,13 +1,18 @@
 let icons = document.querySelectorAll('.icon');
 let mouseDownOnIcon = false;
+let selectedIcons = [];
 
 document.addEventListener('mousemove', function(){
     if(isSelectBoxActive){ //checks icons to see if they are touching the selectbox
         icons.forEach(function(icon){
             if(isOverlapping(icon, selectBox)){
-                icon.classList.add('icon-active'); //if touching add icon-active class
+                if(!selectedIcons.includes(icon)){
+                    icon.classList.add('icon-active'); //if touching add icon-active class
+                    selectedIcons.push(icon);
+                }
             }else{
                 icon.classList.remove('icon-active'); //if not touching then dont
+                selectedIcons.filter(item => item !== icon);
             }
         })
     }
@@ -20,9 +25,12 @@ document.addEventListener('mousedown', function(e){
 })
 
 icons.forEach(function(icon){
-    icon.addEventListener('mousedown', function(){
-        unselectAllIcons();
-        icon.classList.add('icon-active');
+    icon.addEventListener('mousedown', function(e){
+        if(!e.target.closest('.icon-active')){
+            unselectAllIcons();
+            icon.classList.add('icon-active');
+            selectedIcons.push(icon);
+        }
         
         mouseDownOnIcon = true;
     })
@@ -35,6 +43,7 @@ function unselectAllIcons(){
     icons.forEach(function(icon){
         icon.classList.remove('icon-active');
     })
+    selectedIcons = [];
 }
 
 function isOverlapping(element1, element2) {
