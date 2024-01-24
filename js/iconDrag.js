@@ -1,26 +1,26 @@
-iconWrapper = document.getElementById('icon-wrapper');
-yIconOffsets = [];
-xIconOffsets = [];
-currentIcon = null;
+let xIconOffset = [];
+let yIconOffset = [];
+let isIconSelected = false;
 
-iconWrapper.addEventListener('mousedown', function(e){
-    xIconOffset = [];
-    yIconOffset = [];
-    currentIcon = e.target.closest('.icon')
-    if(currentIcon){
-        for(let i = 0; i < selectedIcons.length; i++){
-            const iconRect = selectedIcons[i].getBoundingClientRect();
-            yIconOffset.push(e.clientY - iconRect.top);
-            xIconOffset.push(e.clientX - iconRect.left);
+icons.forEach(function(icon){
+    icon.addEventListener('mousedown', function(e){
+        isIconSelected = e.target.closest('.icon');
+        if(isIconSelected){
+            for(i = 0; i < selectedIcons.length; i++){
+                rect = selectedIcons[i].getBoundingClientRect(); //this is like style.top
+                iconStyle = window.getComputedStyle(selectedIcons[i]); //set in css file PLEASE REMAKE THIS SUCKS
+                xIconOffset[i] = (e.clientX - rect.left + parseInt(iconStyle.getPropertyValue('left')));
+                yIconOffset[i] = (e.clientY - rect.top + parseInt(iconStyle.getPropertyValue('top')));
+            }
         }
-    }
+    })
 })
 
 document.addEventListener('mouseup', function(){
-    currentIcon = null;
+    isIconSelected = false;
 })
 document.addEventListener('mousemove', function(e){
-    if(currentIcon){
+    if(isIconSelected){
         for(let i = 0; i < selectedIcons.length; i++){
             let xMove = e.clientX - xIconOffset[i];
             let yMove = e.clientY - yIconOffset[i];

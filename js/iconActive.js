@@ -6,7 +6,7 @@ document.addEventListener('mousemove', function(){
     if(isSelectBoxActive){ //checks icons to see if they are touching the selectbox
         icons.forEach(function(icon){
             if(isOverlapping(icon, selectBox)){
-                if(!selectedIcons.includes(icon)){
+                if(!selectedIcons.includes(icon)){ //WEEE DOOO WEE SDODOSd
                     icon.classList.add('icon-active'); //if touching add icon-active class
                     selectedIcons.push(icon);
                 }
