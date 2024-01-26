@@ -127,3 +127,4 @@ function resize(north, south, east, west, e){ //all bools
 
 //do a .onload to set some conditionals when the window event is created! instead of doing it on mouse click
 //stop window bar from going below the task bar or above the top.
+//stop window buttons from lighting up when resizing

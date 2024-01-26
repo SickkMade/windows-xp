@@ -12,7 +12,7 @@ document.addEventListener('mousemove', function(){
                 }
             }else{
                 icon.classList.remove('icon-active'); //if not touching then dont
-                selectedIcons.filter(item => item !== icon);
+                selectedIcons = selectedIcons.filter(item => item !== icon);
             }
         })
     }
