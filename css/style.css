@@ -94,19 +94,21 @@ footer {
      top:200px;
      left:500px;
 
-     min-width: 150px;
-     min-height: 100px;
+     min-width: 200px;
+     min-height: 150px;
      z-index:1;
 }
 .window-bar{
-     background-color:lightblue;
+     background: linear-gradient(rgb(0, 88, 238) 0%, rgb(53, 147, 255) 4%, rgb(40, 142, 255) 6%, rgb(18, 125, 255) 8%, rgb(3, 111, 252) 10%, rgb(2, 98, 238) 14%, rgb(0, 87, 229) 20%, rgb(0, 84, 227) 24%, rgb(0, 85, 235) 56%, rgb(0, 91, 245) 66%, rgb(2, 106, 254) 76%, rgb(0, 98, 239) 86%, rgb(0, 82, 214) 92%, rgb(0, 64, 171) 94%, rgb(0, 48, 146) 100%);
      width:100%;
      height:30px;
      display:flex;
      justify-content: end;
+     border-top-right-radius:6px;
+     border-top-left-radius:6px;
 }
 .window-body{
-     background-color:blue;
+     background-color:white;
      width:100%;
      height:calc(100% - 30px); 
      /* HORRIBLE magic numbers. i cry when i see*/
@@ -120,6 +122,7 @@ footer {
 
      border: 1px solid rgb(255, 255, 255);
      border-radius: 3px;
+     margin-right:1px
 }
 .window-bar-button:hover{
      filter: brightness(115%);
@@ -140,11 +143,44 @@ footer {
      width: 12px;
 
 }
-
+#close {
+     box-sizing: border-box;
+     position: relative;
+     display: block;
+     transform: scale(var(--ggs,1));
+ }
+ #close::after,
+ #close::before {
+     color:white;
+     content: "";
+     display: block;
+     box-sizing: border-box;
+     position: absolute;
+     width: 18px;
+     height: 2px;
+     background: currentColor;
+     transform:  rotate(45deg) scale(1, 1);
+     top: 10.5px;
+     left: 2.5px
+ }
+ #close::after {
+     transform:  rotate(-45deg) scale(1, 1);
+ }
+#minimize::before{
+     content:'';
+     position: relative;
+     transform: scale(1.2, 1.2) translate(10%, 10%);
+     display: block;
+     left: 4px;
+     top: 14px;
+     height: 2.5px;
+     width: 8px;
+     background-color:white;
+}
 .window-bar-buttons{
      display:flex;
      flex-flow: no-wrap row;
-     margin:5px 5px 0 0;
+     margin:3px 4px 0 0;
 }
 
 .resize-handler {
