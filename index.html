@@ -25,12 +25,14 @@
 		</section>
 
 		<!--window-->
-		<section class="draggable-window">
+		<section class="draggable-window invisible">
 			<div class="window-bar">
+				<img class="window-bar-icon">
+				<span class="window-bar-span ellpises-overflow"></span>
 				<div class="window-bar-buttons">
-					<div class="window-bar-button" id="minimize"></div>
+					<div class="window-bar-button minimize"></div>
 					<div class="window-bar-button zoom-big"></div> <!--make a zoom big and zoom small and switch between them on click! -->
-					<div class="window-bar-button" id="close"></div>
+					<div class="window-bar-button close"></div>
 				</div>
 			</div>
 			<div class="window-body"></div>
@@ -46,28 +48,9 @@
 		</section>
 
 		<!--ICON-->
-		<div class="icon" id="internet-explorer">
-			<img src='images/icons/internet-explorer.png'>
-			<span class="icon-name">Internet Explorer</span>
-		</div>
-		<div class="icon" id="minesweeper">
-			<img src='images/icons/minesweeper.png'>
-			<span class="icon-name">Minesweeper</span>
-		</div>
-		<div class="icon" id="mypc">
-			<img src='images/icons/mypc.png'>
-			<span class="icon-name">My Computer</span>
-		</div>
-		<div class="icon" id="notepad">
-			<img src='images/icons/notepad.png'>
-			<span class="icon-name">Notepad</span>
-		</div>
-		<div class="icon" id="paint">
-			<img src='images/icons/paint.png'>
-			<span class="icon-name">Paint</span>
-		</div>
-
+		<script type="text/javascript" src="js/icon-window-maker.js"></script>
 		<script type="text/javascript" src="js/draggableWindow.js"></script>
+		<script type="text/javascript" src="js/window-bar-button-functionality.js"></script>
 		<script type="text/javascript" src="js/selectBox.js"></script>
 		<script type="text/javascript" src="js/iconActive.js"></script>
 		<script type="text/javascript" src="js/iconDrag.js"></script>

@@ -58,7 +58,8 @@ body {
 }
 
 :root{
-     --window-bar-height: 25px;
+     --window-bar-margin: 25px;
+     --icon-margin-top: 4px;
 }
 
 /******************************************
@@ -115,14 +116,14 @@ footer {
 .window-bar{
      background: linear-gradient(rgb(0, 88, 238) 0%, rgb(53, 147, 255) 4%, rgb(40, 142, 255) 6%, rgb(18, 125, 255) 8%, rgb(3, 111, 252) 10%, rgb(2, 98, 238) 14%, rgb(0, 87, 229) 20%, rgb(0, 84, 227) 24%, rgb(0, 85, 235) 56%, rgb(0, 91, 245) 66%, rgb(2, 106, 254) 76%, rgb(0, 98, 239) 86%, rgb(0, 82, 214) 92%, rgb(0, 64, 171) 94%, rgb(0, 48, 146) 100%);
      width:100%;
-     height:var(--window-bar-height);
+     height:var(--window-bar-margin);
      display:flex;
-     justify-content: end;
+     justify-content: space-between;
 }
 .window-body{
      background-color:white;
      width:100%;
-     height:calc(100% - var(--window-bar-height)); 
+     height:calc(100% - var(--window-bar-margin)); 
      /* HORRIBLE magic numbers. i cry when i see*/
 }
 .window-bar-button{
@@ -139,7 +140,19 @@ footer {
 .window-bar-button:hover{
      filter: brightness(115%);
 }
-#close{
+.window-bar-icon{
+     width:15px;
+     height:15px;
+     margin:var(--icon-margin-top) 4px 0 4px;
+}
+.window-bar-span{
+     margin-top: var(--icon-margin-top);
+     font-weight: 500;
+     text-shadow: rgb(0, 0, 0) 1px 1px;
+     color: white;
+     margin-right:auto;
+}
+.close{
      box-shadow: rgb(218, 70, 0) 0px -1px 2px 1px inset;
      background-image: radial-gradient(circle at 90% 90%, rgb(204, 70, 0) 0%, rgb(220, 101, 39) 55%, rgb(205, 117, 70) 70%, rgb(255, 204, 178) 90%, white 100%); 
 }
@@ -155,14 +168,14 @@ footer {
      width: 12px;
 
 }
-#close {
+.close {
      box-sizing: border-box;
      position: relative;
      display: block;
      transform: scale(var(--ggs,1));
  }
- #close::after,
- #close::before {
+ .close::after,
+ .close::before {
      color:white;
      content: "";
      display: block;
@@ -175,10 +188,10 @@ footer {
      top: 43%;
      left: 6.2%;
  }
- #close::after {
+ .close::after {
      transform:  rotate(-45deg) scale(1, 1);
  }
-#minimize::before{
+.minimize::before{
      content:'';
      position: relative;
      transform: scale(1.2, 1.2) translate(10%, 10%);
@@ -278,15 +291,11 @@ footer {
 }
 .icon-name{
      margin-top:7.5px;
-     text-overflow: ellipsis;
      text-align: center;
 
      width:80px;
 
      padding: 3px 2px 1px 2px;
-
-     overflow:hidden;
-     white-space:nowrap;
 
      color:white;
      text-shadow: #000 0 1px 1px;
@@ -299,18 +308,11 @@ footer {
 .icon-active img{
      opacity: 50%;
 }
-#internet-explorer{
-     top:45px;
+.invisible{
+     opacity:0;
+     pointer-events: none;
 }
-#minesweeper{
-     top:145px;
-}
-#mypc{
-     top:245px
-}
-#notepad{
-     top:345px;
-}
-#paint{
-     top:445px;
+.ellpises-overflow{
+     overflow: auto;
+     text-overflow: ellipsis;
 }
