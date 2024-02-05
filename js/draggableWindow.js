@@ -1,5 +1,3 @@
-let windows = document.querySelectorAll('.draggable-window');
-
 let xRelativeClickStart = 0;
 let yRelativeClickStart = 0;
 
@@ -9,7 +7,8 @@ let isMouseDownWindow = false;
 let onClickHeight;
 let onClickWidth;
 
-let windowCompStyles = window.getComputedStyle(windows[0]);
+let maxZIndex = 1;
+let taskbar = document.getElementById('taskbar');
 //i hope we always have atleast one window
 
 let norths = document.querySelectorAll('.northResize');
@@ -22,20 +21,17 @@ let isSouth = false;
 let isEast = false;
 let isWest = false;
 
-const windowMinWidth = windowCompStyles.getPropertyValue('min-width');
-const windowMinHeight = windowCompStyles.getPropertyValue('min-height');
-const windowStartHeight = windowCompStyles.getPropertyValue('height');
-const windowStartWidth = windowCompStyles.getPropertyValue('width');
-const windowStartTop = windowCompStyles.getPropertyValue('top');
-const windowStartLeft = windowCompStyles.getPropertyValue('left');
-
 windows.forEach(function(dWindow){
-    dWindow.style.left = windowStartLeft;
-    dWindow.style.top = windowStartTop;
-    dWindow.style.width = windowStartWidth;
-    dWindow.style.height = windowStartHeight;
+    dWindow.style.left = windowDict[dWindow.id].left;
+    dWindow.style.top = windowDict[dWindow.id].top;
+    dWindow.style.width = windowDict[dWindow.id].width;
+    dWindow.style.height = windowDict[dWindow.id].height;
+
     dWindow.addEventListener('mousedown', function(e){
         currentWindow = dWindow;
+
+        currentWindow.style.zIndex = maxZIndex++;
+        taskbar.style.zIndex = maxZIndex; //THIS IS BAD... REWRITE
 
         onClickHeight = parseInt(dWindow.style.height);
         onClickHeight = parseInt(dWindow.style.width);
@@ -124,6 +120,9 @@ function resize(north, south, east, west, e){ //all bools
         } //this is tricky bc i cant just set the width to 50 i need to move the left back to 50 away from the right side AAAs
     }
 }
+
+
+//ItS SO OVER !!11! any way;
 
 //do a .onload to set some conditionals when the window event is created! instead of doing it on mouse click
 //stop window bar from going below the task bar or above the top.
