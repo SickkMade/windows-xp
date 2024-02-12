@@ -205,6 +205,27 @@ footer {
      width: 7px;
      background-color:white;
 }
+.zoom-small::before{
+     content: "";
+     position: relative;
+     display: block;
+     left: 7px;
+     top: 4px;
+     box-shadow: white 0px 2px inset, white 0px 0px 0px 1px inset;
+     height: 8px;
+     width: 8px;
+}
+.zoom-small::after{
+     content: "";
+     position: relative;
+     display: block;
+     left: 4px;
+     box-shadow: white 0px 2px inset, white 0px 0px 0px 1px inset, rgb(19, 109, 255) 1px -1px;
+     height: 8px;
+     width: 8px;
+     background-color: rgb(19, 109, 255);
+}
+
 .window-bar-buttons{
      display:flex;
      flex-flow: no-wrap row;
