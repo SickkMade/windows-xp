@@ -7,6 +7,9 @@ let isMouseDownWindow = false;
 let onClickHeight;
 let onClickWidth;
 
+let isFullScreen = false;
+let currentWindowRect = null;
+
 let maxZIndex = 1;
 let taskbar = document.getElementById('taskbar');
 //i hope we always have atleast one window
@@ -21,36 +24,40 @@ let isSouth = false;
 let isEast = false;
 let isWest = false;
 
-windows.forEach(function(dWindow){
-    dWindow.style.left = windowDict[dWindow.id].left;
-    dWindow.style.top = windowDict[dWindow.id].top;
-    dWindow.style.width = windowDict[dWindow.id].width;
-    dWindow.style.height = windowDict[dWindow.id].height;
+let windowMinHeight = 200; //NEED TO UPDATE TO DYNAMIC PER PROGRAM :SOB:
+let windowMinWidth = 200;
 
+windows.forEach(function(dWindow){
     dWindow.addEventListener('mousedown', function(e){
         currentWindow = dWindow;
+        if(!isFullScreen){
+            currentWindow.style.zIndex = maxZIndex++;
+            taskbar.style.zIndex = maxZIndex; //THIS IS BAD... REWRITE //i want in own little like thing
 
-        currentWindow.style.zIndex = maxZIndex++;
-        taskbar.style.zIndex = maxZIndex; //THIS IS BAD... REWRITE
+            currentWindowRect = currentWindow.getBoundingClientRect();
 
-        onClickHeight = parseInt(dWindow.style.height);
-        onClickHeight = parseInt(dWindow.style.width);
-        xRelativeClickStart = e.clientX - parseInt(dWindow.style.left);
-        yRelativeClickStart = e.clientY - parseInt(dWindow.style.top);
+            onClickHeight = currentWindowRect.height;
+            onClickWidth = currentWindowRect.width;
+            xRelativeClickStart = e.clientX - currentWindowRect.left;
+            yRelativeClickStart = e.clientY - currentWindowRect.top; 
+        }
+        
     })
     dWindow.querySelector('.window-bar').addEventListener('mousedown', function(){
         isMouseDownWindow = true; // only works if mouse over window
     })
 })
 document.addEventListener('mousemove', function(e){
-    if(isMouseDownWindow){
+    if(isMouseDownWindow && !isFullScreen){
         currentWindow.style.top = `${(e.clientY - yRelativeClickStart)}px`;
         currentWindow.style.left = `${(e.clientX - xRelativeClickStart)}px`;
     }
-    resize(isNorth, isSouth, isEast, isWest, e);
+    if(currentWindow && !isFullScreen)
+        resize(currentWindowRect, e);
 })
 document.addEventListener('mouseup', function(){
     isMouseDownWindow = false;
+    currentWindow = null;
     isNorth = false;
     isSouth = false;
     isEast = false;
@@ -81,48 +88,39 @@ wests.forEach(function(west){
 })
 
 //seperate into two funcs but im lazy mwahahaha
-function resize(north, south, east, west, e){ //all bools
-    if(north){
-        let newHeight = (e.clientY - parseInt(currentWindow.style.top)); //neweight is the distance between the mouse and the top of the window
-        newHeight = -(newHeight - parseInt(currentWindow.style.height)); //since we're going up the height will be negative (so we reverse taht) then we subtract (from the negative height (so it adds)) the height of the window on first click. before i had - 50 for min height but now it will adjust the window based on its height
-
-        if(newHeight > parseInt(windowMinHeight)){//I NEED MIN WIDTH VAR AAAAAA I SUCK AT CODING :sob:
+function resize(rect, e){ //all bools
+    if(isNorth){
+        let newHeight = rect.top - e.clientY + rect.height; //neweight is the distance between the mouse and the top of the window
+        if(newHeight > windowMinHeight){//I NEED MIN WIDTH VAR AAAAAA I SUCK AT CODING :sob:
             currentWindow.style.height = newHeight + 'px';
             currentWindow.style.top = e.clientY + 'px';
-        }else{
-            currentWindow.style.top = (parseInt(currentWindow.style.top) + parseInt(currentWindow.style.height) - parseInt(windowMinHeight)) + 'px'; //left + width - min
-            currentWindow.style.height = windowMinHeight; //love the magic numbers
-        } 
+        }else
+            currentWindow.style.height = windowMinHeight + 'px'; //love the magic numbers
     }
-    if(south){
-        let newHeight = e.clientY - parseInt(currentWindow.style.top);
-        if(newHeight < parseInt(windowMinHeight)){
-            newHeight = parseInt(windowMinHeight); //i feel like UGHGUOSKJFHSDLFS: i dont like this code it - it hurts me for some reason
-        }
+    if(isSouth){
+        let newHeight = e.clientY - rect.top;
+        if(newHeight < windowMinHeight)
+            newHeight = windowMinHeight; //i feel like UGHGUOSKJFHSDLFS: i dont like this code it - it hurts me for some reason
         currentWindow.style.height = newHeight + 'px';
     }
-    if(east){
-        let newWidth = (e.clientX - parseInt(currentWindow.style.left)); //redo since its same as xclickstart
-        if(newWidth < parseInt(windowMinWidth))
-            newWidth = parseInt(windowMinWidth);
+    if(isEast){
+        let newWidth = (e.clientX - rect.left); //redo since its same as xclickstart
+        if(newWidth < windowMinWidth)
+            newWidth = windowMinWidth;
         currentWindow.style.width = newWidth + 'px';
     }
-    if(west){
-        let newWidth = (e.clientX - parseInt(currentWindow.style.left)); //neweight is the distance between the mouse and the top of the window
-        newWidth = -(newWidth - parseInt(currentWindow.style.width)); //since we're going up the height will be negative (so we reverse taht) then we subtract (from the negative height (so it adds)) the height of the window on first click. before i had - 50 for min height but now it will adjust the window based on its height
-
-        if(newWidth > parseInt(windowMinWidth)){//I NEED MIN WIDTH VAR AAAAAA I SUCK AT CODING :sob:
-            currentWindow.style.width = newWidth + 'px';
+    if(isWest){
+        let newWidth = rect.left - e.clientX + rect.width; //neweight is the distance between the mouse and the top of the window
+        if(newWidth > windowMinWidth){
+            currentWindow.style.width = (rect.left - e.clientX + rect.width) + 'px';
             currentWindow.style.left = e.clientX + 'px';
-        }else{
-            currentWindow.style.left = (parseInt(currentWindow.style.left) + parseInt(currentWindow.style.width) - parseInt(windowMinWidth)) + 'px'; //left + width - min
+        }else
             currentWindow.style.width = windowMinWidth; //love the magic numbers
-        } //this is tricky bc i cant just set the width to 50 i need to move the left back to 50 away from the right side AAAs
     }
 }
 
 
-//ItS SO OVER !!11! any way;
+//ItS SO OVER !!11! any way;git 
 
 //do a .onload to set some conditionals when the window event is created! instead of doing it on mouse click
 //stop window bar from going below the task bar or above the top.

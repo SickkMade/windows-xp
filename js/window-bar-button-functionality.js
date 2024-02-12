@@ -10,17 +10,27 @@ closeButtons.forEach(function(closeButton){
 
 zoomButtons.forEach(function(zoomButton){
     zoomButton.addEventListener('mouseup', function(){
-        if(zoomButton.classList.contains('maximize')){
-            zoomButton.classList.remove('maximize');
-            zoomButton.classList.add('minimize');
+        if(zoomButton.classList.contains('zoom-big')){
+            zoomButton.classList.remove('zoom-big');
+            zoomButton.classList.add('zoom-small');
+
+            isFullScreen = true;
 
             currentWindow.style.width = window.innerWidth + 'px';
             currentWindow.style.height = window.innerHeight + 'px';
             currentWindow.style.top = 0;
             currentWindow.style.left = 0;
         } else{
-            zoomButton.classList.add('maximize');
-            zoomButton.classList.remove('minimize');
+            isFullScreen = false;
+
+            currentWindow.style.width = currentWindowRect.width  + 'px';
+            currentWindow.style.height = currentWindowRect.height + 'px';
+            currentWindow.style.top = currentWindowRect.top + 'px';
+            currentWindow.style.left = currentWindowRect.left + 'px';
+
+
+            zoomButton.classList.add('zoom-big');
+            zoomButton.classList.remove('zoom-small');
         }
         
 
