@@ -14,6 +14,7 @@ document.querySelector('#icon-footers').addEventListener('mouseup', function(e){
     }
 })
 
-//problems:
 
-//footers cant be removed because i don't know the index of any individiual item
+//PROBLEMS:
+
+// does not go full screen if it was before going minimize :P

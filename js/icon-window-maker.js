@@ -18,6 +18,8 @@ for(let i = 0; i < iconNames.length; i++){
     var iconImage = document.createElement("img");
     var iconSpan = document.createElement("span");
 
+    iconContainer.id = 'icon-' + i;
+
     iconImage.src = iconNames[i].src;
     iconSpan.textContent = iconNames[i].name;
     
@@ -36,7 +38,6 @@ for(let i = 0; i < iconNames.length; i++){
     var windowBarIconSpan = newWindow.querySelector('.window-bar-span');
 
     newWindow.id = 'window-' + i;
-    newWindow.classList.remove('invisible');
     windows.push(newWindow);
 
     windowBarIconSpan.textContent = iconNames[i].name;
