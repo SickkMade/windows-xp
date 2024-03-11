@@ -9,6 +9,7 @@ let iconNames = [
 let screen = document.querySelector('#screen');
 let fragment = document.createDocumentFragment();
 let blankWindow = document.querySelector('.draggable-window');
+let blankIconFooter = document.querySelector('.icon-footer');
 var windows = [];
 
 for(let i = 0; i < iconNames.length; i++){
@@ -41,9 +42,19 @@ for(let i = 0; i < iconNames.length; i++){
     windowBarIconSpan.textContent = iconNames[i].name;
     windowBarIconImage.src = iconNames[i].src;
 
+    //footer icons
+    var newIconFooter = blankIconFooter.cloneNode(true); //the boolean is for a deep clone
+    var iconFooterImage = newIconFooter.querySelector('img');
+    var iconFooterSpan = newIconFooter.querySelector('span');
+
+    iconFooterImage.src = iconNames[i].src;
+    iconFooterSpan.textContent = iconNames[i].name;
+    newIconFooter.id = 'footer-' + i;
+
     //appending to dom fragment
     fragment.appendChild(iconContainer);
     fragment.appendChild(newWindow);
+    document.body.appendChild(newIconFooter);
 }
 screen.appendChild(fragment);
 //add footers. I should also add double click and close

@@ -5,6 +5,7 @@ minimizeButtons = document.querySelectorAll('.minimize');
 closeButtons.forEach(function(closeButton){
     closeButton.addEventListener('mouseup', function(){
         closeButton.closest('.draggable-window').classList.add('invisible');
+        isFullScreen = false;
     })
 })
 
@@ -32,10 +33,14 @@ zoomButtons.forEach(function(zoomButton){
             zoomButton.classList.add('zoom-big');
             zoomButton.classList.remove('zoom-small');
         }
-        
+    })
+})
 
-        
-        
+minimizeButtons.forEach(function(minimizeButton){
+    minimizeButton.addEventListener("mouseup", function(){
+        isFullScreen = false;
+        currentWindow.classList.add('invisible')
+        addActiveFooter(document.querySelector('#footer-' + currentWindow.id.slice(-1))); //wtf is this shit :sob:
     })
 })
 

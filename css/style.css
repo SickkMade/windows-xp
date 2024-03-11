@@ -65,13 +65,7 @@ body {
 /******************************************
 /* LAYOUT
 /*******************************************/
-header {
 
-}
-
-footer {
-
-}
 
 
 /******************************************
@@ -90,6 +84,8 @@ footer {
      width:100%;
      position:absolute;
      bottom:0;
+
+     display:flex;
 
      z-index: 3;
 }
@@ -151,9 +147,11 @@ footer {
 .window-bar-span{
      margin-top: var(--icon-margin-top);
      font-weight: 500;
+     margin-right:auto;
+}
+.text-color{
      text-shadow: rgb(0, 0, 0) 1px 1px;
      color: white;
-     margin-right:auto;
 }
 .close{
      box-shadow: rgb(218, 70, 0) 0px -1px 2px 1px inset;
@@ -335,8 +333,35 @@ footer {
 .invisible{
      opacity:0;
      pointer-events: none;
+     position:absolute;
 }
 .ellpises-overflow{
      overflow: auto;
      text-overflow: ellipsis;
+}
+.icon-footer{
+     background-color: rgb(83, 163, 255);
+     box-shadow: rgba(0, 0, 0, 0.3) -1px 0px inset, rgba(255, 255, 255, 0.2) 1px 1px 1px inset;
+     width: 150px;
+     height:22px;
+     margin-top:5px;
+     border-radius:2px;
+     color: white;
+}
+.icon-footer:hover{
+     filter: brightness(110%);
+}
+.icon-footer > img{
+     width:15px;
+     height:15px;
+     margin-top:3.5px;
+     margin-left:5px;
+     margin-bottom:-3px;
+     margin-right:6px;
+}
+#icon-footers{
+     margin-left:10px;
+     width:100%;
+     display:flex;
+     justify-content:start;
 }
