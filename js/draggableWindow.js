@@ -43,8 +43,9 @@ windows.forEach(function(dWindow){
         }
         
     })
-    dWindow.querySelector('.window-bar').addEventListener('mousedown', function(){
-        isMouseDownWindow = true; // only works if mouse over window
+    dWindow.querySelector('.window-bar').addEventListener('mousedown', function(e){
+        if(!e.target.classList.contains('window-bar-button')) //if we're not pressing on window bar buttons
+            isMouseDownWindow = true; // only works if mouse over window
     })
 })
 document.addEventListener('mousemove', function(e){
@@ -118,7 +119,20 @@ function resize(rect, e){ //all bools
             currentWindow.style.width = windowMinWidth; //love the magic numbers
     }
 }
+function changeActiveCSS(w, n){//window number
+    if(w)
+        w.style.opacity = n;
+}
 
+function windowVisible(wind, wantVisible){ //window boolean
+    if(wantVisible){
+        wind.classList.remove('invisible');
+        wind.style.zIndex = maxZIndex++;
+    }
+    else{
+        wind.classList.add('invisible');
+    }
+}
 
 //ItS SO OVER !!11! any way;git 
 
