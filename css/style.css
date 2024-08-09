@@ -365,3 +365,9 @@ body {
      display:flex;
      justify-content:start;
 }
+
+.objectpage {
+     width:100%;
+     height:100%;
+     
+}
