@@ -9,7 +9,8 @@ icons.forEach(function(icon){
             dblClickWindow.style.left = 500 + 'px'; //NEED TO CREATE VAR FOR THIS!!! AND VARIATIONS
             dblClickWindow.style.width = 300 + 'px';
             dblClickWindow.style.height = 200 + 'px';
-            windowVisible(dblClickWindow, true) //make it so you can see it
+
+            dblClickWindow.classList.remove('invisible'); //make it so you can see it
         }
     })
 })
